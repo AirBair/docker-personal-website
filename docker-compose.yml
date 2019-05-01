@@ -1,0 +1,39 @@
+version: '3.7'
+
+volumes:
+    mariadb:
+
+services:
+    db:
+        image: mariadb
+        restart: always
+        volumes:
+            - mariadb:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    php:
+        build: ./php-fpm
+        restart: always
+        volumes:
+            - ./symfony:/var/www
+        links:
+            - db
+    nginx:
+        image: nginx:alpine
+        restart: always
+        ports:
+            - ${NGINX_EXTERNAL_PORT}:80
+        links:
+            - php
+        volumes:
+            - ./nginx-conf:/etc/nginx/conf.d
+            - ./symfony:/var/www
+            - ./logs/nginx:/var/log/nginx:cached
+    encore:
+      image: node:10-alpine
+      volumes:
+          - ./symfony:/var/www
+      working_dir: /var/www
