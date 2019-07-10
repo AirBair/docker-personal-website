@@ -4,7 +4,8 @@ MAINTAINER Florian LE GOFF <contact@florianlegoff.com>
 
 RUN apk update
 RUN apk add \
-    curl
+    curl \
+    git
 
 # intl extension
 RUN apk add \
