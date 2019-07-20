@@ -33,7 +33,7 @@ services:
             - ./symfony:/var/www
             - ./logs/nginx:/var/log/nginx:cached
     encore:
-      image: node:10-alpine
+      image: node:alpine
       volumes:
           - ./symfony:/var/www
       working_dir: /var/www
