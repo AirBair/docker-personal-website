@@ -18,7 +18,7 @@ services:
         build: ./php-fpm
         restart: always
         volumes:
-            - ./symfony:/var/www
+            - ${WWW_FOLDER}:/var/www
         links:
             - db
     nginx:
@@ -30,10 +30,10 @@ services:
             - php
         volumes:
             - ./nginx-conf:/etc/nginx/conf.d
-            - ./symfony:/var/www
+            - ${WWW_FOLDER}:/var/www
             - ./logs/nginx:/var/log/nginx:cached
     encore:
       image: node:alpine
       volumes:
-          - ./symfony:/var/www
+          - ${WWW_FOLDER}:/var/www
       working_dir: /var/www
