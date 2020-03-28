@@ -15,7 +15,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     php:
-        build: ./php-fpm
+        image: airbair/php:florianlegoff
         restart: always
         volumes:
             - ${WWW_FOLDER}:/var/www
